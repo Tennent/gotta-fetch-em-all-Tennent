@@ -10,8 +10,15 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 
-app.get("/api/test", (req, res) => {
-    res.send({ message: "Hello from the backend!"})
+app.get("/api/pokemons", async (req, res) => {
+    try {
+        const data = await fs.readFile('./pokemons.json', 'utf-8')
+        const pokemons = JSON.parse(data)
+        res.json({ pokemons })
+    } catch (error) {
+        console.error('error reading file ' + error);
+    }
+
 });
 
 app.listen(3000, () => {
