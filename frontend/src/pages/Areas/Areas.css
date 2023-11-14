@@ -1,0 +1,5 @@
+.pokemon-image {
+    width: 15vw;
+    height: 15vh;
+    image-rendering: pixelated;
+}
