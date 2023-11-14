@@ -15,12 +15,11 @@ function Home() {
     }
     getLocations();
   }, [])
+  console.log(locations);
 
   return (
     <div className='locations'>
-      <ul>
         {locations.map((location, index) => <Locations key={index} location={location} />)}
-      </ul>
     </div>
   )
 }
