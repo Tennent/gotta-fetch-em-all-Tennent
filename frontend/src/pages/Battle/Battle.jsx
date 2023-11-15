@@ -20,6 +20,7 @@ export default function Battle() {
   const [enemyHp, setEnemyHp] = useState(0);
   const [isFinished, setIsFinshed] = useState(false);
   const [isplayerTurn, setIsPlayerTurn] = useState(false)
+  const [alreadyCaptured, setAlreadyCaptured] = useState(false)
 
   useEffect(() => {
     async function battleSetup() {
@@ -36,7 +37,7 @@ export default function Battle() {
         setTimeout(() => {
           setIsPlayerTurn(true)
         }, 2000);
-        
+
       }
     }
     battleSetup();
@@ -44,7 +45,22 @@ export default function Battle() {
 
   useEffect(() => {
     if ((selectedHp <= 0) || (enemyHp <= 0)) {
-      const timeout = setTimeout(() => {
+      const alreadyCaptured = async () => {
+
+        const response = await fetch("/api/pokemons", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: `https://pokeapi.co/api/v2/pokemon/${enemy.name}` })
+        })
+        response.status === 208 ? setAlreadyCaptured(true) : setAlreadyCaptured(false);
+      }
+      if (enemyHp <= 0) {
+        alreadyCaptured();
+      }
+
+      const timeout = setTimeout(async () => {
         setIsFinshed(true)
       }, 2000);
       return () => { clearTimeout(timeout) }
@@ -80,14 +96,15 @@ export default function Battle() {
 
   return (
     (isFinished && selectedHp <= 0) ? <h1>You lost the battle</h1> :
-      (isFinished && enemyHp <= 0) ? <h1>You won the battle and captured {enemy.name}</h1> :
-        (selected && enemy) ?
-          (<div id='battle'>
-            <Pokemon className="enemy" pokemon={enemy} health={enemyHp} />
-            <Pokemon className="friendly" pokemon={selected} health={selectedHp} />
-            <Message message={message} />
-            {(isplayerTurn) ? (<Attack startRound={attackMove} />) : ""}
-          </div>) :
-          (<p>Loading...</p>)
+      (alreadyCaptured && isFinished && enemyHp <= 0) ? <h1>You won the battle, but {enemy.name} was already captured</h1> :
+        (isFinished && enemyHp <= 0) ? <h1>You won the battle and captured {enemy.name}</h1> :
+          (selected && enemy) ?
+            (<div id='battle'>
+              <Pokemon className="enemy" pokemon={enemy} health={enemyHp} />
+              <Pokemon className="friendly" pokemon={selected} health={selectedHp} />
+              <Message message={message} />
+              {(isplayerTurn) ? (<Attack startRound={attackMove} />) : ""}
+            </div>) :
+            (<p>Loading...</p>)
   )
 }
