@@ -5,7 +5,7 @@ export default async function attack(attackerPokemon, defenderPokemon) {
 
     let randomMove = await fetchMove(attackerPokemon.moves[random(attackerPokemon.moves.length)].move.url)
     let attackerTypes = attackerPokemon.types.map(type => type.type.name)
-    const typeModifiers = [40, 20, 10, 5, 2.5, 0]
+    const typeModifiers = [25, 20, 15, 10, 5, 2,5]
 
     const A = 1 // attacker's Level
     const B = attackerPokemon.stats[1].base_stat // attacker's Attack or Special
@@ -15,5 +15,9 @@ export default async function attack(attackerPokemon, defenderPokemon) {
     const Y = typeModifiers[random(typeModifiers.length)] // Type modifiers (40, 20, 10, 5, 2.5, or 0)
     const Z = 217 + random(255-217) // a random number between 217 and 255
 
-    return Math.ceil(((((((((2 * A / 5 + 2) * B * C) / D) / 50) + 2) * X) * Y / 10) * Z) / 255);
+    console.log("Damage:" + Math.ceil(((((((((2 * A / 5 + 2) * B * C) / D) / 50) + 2) * X) * Y / 10) * Z) / 255));
+    return {
+        name: randomMove.name,
+        damage: Math.ceil(((((((((2 * A / 5 + 2) * B * C) / D) / 50) + 2) * X) * Y / 10) * Z) / 255)
+    }
 }
