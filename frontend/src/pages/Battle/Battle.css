@@ -1,0 +1,9 @@
+.enemy {
+    color: red;
+}
+#message-box {
+    background-color: white;
+    width: 30vh;
+    height: 20vh;
+    color: black;
+}
