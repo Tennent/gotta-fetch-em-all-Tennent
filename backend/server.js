@@ -26,10 +26,14 @@ app.post("/api/pokemons", async (req, res) => {
         const data = await fs.readFile('./pokemons.json', 'utf-8')
         const pokemons = JSON.parse(data)
         const pokemon = req.body.url; //ne felejtsük el xd
-        pokemons.push(pokemon);
-        await fs.writeFile('./pokemons.json', JSON.stringify(pokemons), 'utf-8')
 
-        res.json({ message: 'Pokemon added to the list' })
+        if (!pokemons.includes(pokemon)) {
+            pokemons.push(pokemon);
+            await fs.writeFile('./pokemons.json', JSON.stringify(pokemons), 'utf-8')
+            return res.status(200).json({ message: 'Pokemon added to the list' })
+        } else {
+            return res.status(208).json({ message: 'Pokemon alraedy in list' })
+        }
     } catch (error) {
         console.error('error reading file ' + error);
     }
