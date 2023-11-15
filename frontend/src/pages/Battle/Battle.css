@@ -1,9 +1,45 @@
 .enemy {
     color: red;
 }
+
 #message-box {
-    background-color: white;
-    width: 30vh;
-    height: 20vh;
+    background-color: rgb(252, 253, 188);
+    width: 60vw;
+    height: 5vh;
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#message {
+    overflow: hidden;
+    /* Hide overflow to create a typing effect */
+    white-space: nowrap;
+    /* Keep text on a single line */
+    margin: 0;
+    /* Remove default margin */
+    font-family: monospace;
+    /* Optional: Use a monospace font for a more typewriter-like feel */
+}
+
+#message::after {
+    content: attr(data-text);
+    /* Display the text content of the 'data-text' attribute */
+    display: inline-block;
+    vertical-align: text-bottom;
+    overflow: hidden;
+    width: 0;
+    animation: typing 1.5s steps(40) forwards;
+    /* Adjust duration and steps as needed */
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
 }
