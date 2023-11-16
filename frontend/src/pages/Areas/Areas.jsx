@@ -35,22 +35,25 @@ export default function Areas() {
     if (encounter) {
         return (
             <div className='encounter'>
-                {(enemyPokemon) ?
-                    <Pokemon pokemon={enemyPokemon} /> :
-                    <p>loading...</p>}
-                {selectedPokemon ?
+
+                {(selectedPokemon && enemyPokemon) ?
                     <>
+                        <Pokemon pokemon={enemyPokemon} />
                         <Pokemon pokemon={selectedPokemon} />
                         <BattleButton selectedPokemon={selectedPokemon} enemyPokemon={enemyPokemon} />
+                        <button onClick={() => navigate("/")}>Flee</button>
                     </>
                     : (ownedPokemons.length > 0) ?
-                        <div className='own-pokemons'>
-                            <h2>Own pokemons</h2>
-                            <h3>Please choose a Pokemon</h3>
-                            {ownedPokemons.map((pokemon, i) =>
-                                <Pokemon key={i} pokemon={pokemon} setSelectedPokemon={() => setSelectedPokemon(pokemon)} />
-                            )}
-                        </div> :
+                        <>
+                            <Pokemon pokemon={enemyPokemon} />
+                            <div className='own-pokemons'>
+                                <h2>Own pokemons</h2>
+                                <h3>Please choose a Pokemon</h3>
+                                {ownedPokemons.map((pokemon, i) =>
+                                    <Pokemon key={i} pokemon={pokemon} setSelectedPokemon={() => setSelectedPokemon(pokemon)} />
+                                )}
+                            </div>
+                        </> :
                         <p>loading...</p>}
             </div>
         )
