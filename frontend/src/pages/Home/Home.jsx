@@ -20,7 +20,7 @@ function Home() {
   return (
     <div className='locations container-fluid'>
       <div className='row'>
-      {locations.map(location => <Locations key={location.name} location={location} image={`${location.name}.png`} />)}
+      {locations.map(location => <Locations key={location.name} location={location} image={`${location.name}.jpg`} />)}
       </div>
     </div>
   )
