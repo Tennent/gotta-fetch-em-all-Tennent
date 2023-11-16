@@ -1,23 +1,57 @@
+* {
+  font-family:'Press Start 2P', 'sans-serif'
+}
+body {
+  background-image: url(../../assets/images/grass.jpg)
+}
+
+.header {
+  color: rgb(37, 36, 36);
+}
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 15px auto;
   padding: 2rem;
   text-align: center;
+  background-color: rgba(252, 253, 188, 0.771);
+  border-radius: 10px;
 }
 
 .location, .area {
-  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.752);
+  color: white;
+  font-size: 20px;
+  padding: 10px 3px;
 }
 
-.location:hover, .area:hover {
-  color: yellow;
+.location {
+  cursor: pointer;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.area {
+  font-size: 10px;
+  cursor: pointer;
+  margin: 0px;
+  padding: 5px 5px;
+
+}
+
+.area:hover {
+  color: yellow
 }
 
 .location-container {
   height: 30vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+
 }
 
-.areas{
+.areas {
   height: 20vh;
   overflow: scroll;
 }

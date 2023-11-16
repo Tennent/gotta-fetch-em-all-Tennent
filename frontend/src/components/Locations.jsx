@@ -7,11 +7,11 @@ export default function Locations({ location, image }) {
     const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
     return (
-        <div className="location-container col-3"
+        <div className="location-container col-3 m-2"
         style={{backgroundImage: `url("/src/assets/images/${image}")`}}>
-            <h2 className="location"
+            <h5 className="location"
                 onClick={() => { visible ? setVisible(false) : setVisible(true) }}
-            >{location.name + ((location.areas.length > 0) ? "" : " (No area provided)")}</h2>
+            >{location.name + ((location.areas.length > 0) ? "" : " (No area provided)")}</h5>
             <div className="areas">
             {
                 location.areas.map((area, i) => <Area area={area} key={i} visible={visible} />)

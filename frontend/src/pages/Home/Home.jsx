@@ -18,11 +18,19 @@ function Home() {
   console.log(locations);
 
   return (
-    <div className='locations container-fluid'>
-      <div className='row'>
-      {locations.map(location => <Locations key={location.name} location={location} image={`${location.name}.jpg`} />)}
+    <>
+      <div className='header'>
+        <header>
+          <h1>Epic Pokemon Game</h1>
+          <h2>Please choose a location!</h2>
+        </header>
       </div>
-    </div>
+      <div className='locations container-fluid'>
+        <div className='row d-flex justify-content-center'>
+          {locations.map(location => <Locations key={location.name} location={location} image={`${location.name}.jpg`} />)}
+        </div>
+      </div>
+    </>
   )
 }
 

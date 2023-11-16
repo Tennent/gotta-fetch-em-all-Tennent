@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Attack({ startRound }) {
     return (
-        <button onClick={startRound}>Attack</button>
+        <button className='btn mt-4 mb-1' onClick={startRound}>Attack</button>
     )
 }

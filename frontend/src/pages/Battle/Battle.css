@@ -1,15 +1,17 @@
-.enemy {
-    color: red;
-}
 
-#message-box {
+
+.message-box {
     background-color: rgb(252, 253, 188);
+    border: 2px solid black;
     width: 60vw;
     height: 5vh;
     color: black;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+p {
+    font-family:'Press Start 2P', 'sans-serif';
 }
 
 #message {
@@ -46,6 +48,7 @@
 
 .progress {
     margin: auto;
+    background-color: rgba(255, 0, 0, 0.676);
 }
 
 .progress-bar {

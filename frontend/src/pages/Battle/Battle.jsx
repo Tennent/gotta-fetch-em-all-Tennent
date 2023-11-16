@@ -117,13 +117,14 @@ export default function Battle() {
   console.log(enemyHp);
 
   return (
-    (alreadyCaptured && isFinished && enemyHp <= 0) ? <><h1>You won the battle, but {enemy.name} was already captured</h1><button onClick={() => navigate("/")}>Back to Locations</button></> :
-      (isFinished && enemyHp <= 0) ? <><h1>You won the battle and captured {enemy.name}</h1><button onClick={() => navigate("/")}>Back to Locations</button></> :
-        (isFinished) ? <><h1>You lost the battle</h1><button onClick={() => navigate("/")}>Back to Locations</button></> :
+    (alreadyCaptured && isFinished && enemyHp <= 0) ? <><h1>You won the battle, but {enemy.name} was already captured</h1><button className='btn' onClick={() => navigate("/")}>Back to Locations</button></> :
+      (isFinished && enemyHp <= 0) ? <><h1>You won the battle and captured {enemy.name}</h1><button className='btn' onClick={() => navigate("/")}>Back to Locations</button></> :
+        (isFinished) ? <><h1>You lost the battle</h1><button className='btn' onClick={() => navigate("/")}>Back to Locations</button></> :
           (selected && enemy) ?
             (<div id='battle'>
-              <Pokemon className="enemy" pokemon={enemy} health={enemyHp} maxHp={enemyMaxHp} />
-              <Pokemon className="friendly" pokemon={selected} health={selectedHp} maxHp={selectedMaxHp} />
+              <h2>Battle</h2>
+              <Pokemon className="enemy enemy-pokemon" pokemon={enemy} health={enemyHp} maxHp={enemyMaxHp} />
+              <Pokemon className="friendly own-pokemon" pokemon={selected} health={selectedHp} maxHp={selectedMaxHp} />
               <Message message={message} />
               {(isplayerTurn) ? (<Attack startRound={attackMove} />) : ""}
             </div>) :

@@ -34,23 +34,36 @@ export default function Areas() {
     console.log(selectedPokemon);
     if (encounter) {
         return (
-            <div className='encounter'>
+            <div className='encounter container'>
 
                 {(selectedPokemon && enemyPokemon) ?
                     <>
-                        <Pokemon pokemon={enemyPokemon} />
-                        <Pokemon pokemon={selectedPokemon} />
-                        <BattleButton selectedPokemon={selectedPokemon} enemyPokemon={enemyPokemon} />
-                        <button onClick={() => navigate("/")}>Flee</button>
+                        <div className='row d-flex justify-content-center'>
+                            <Pokemon pokemon={enemyPokemon} className={"enemy-pokemon col-12 mb-5"} />
+                            <h3>vs</h3>
+                            <Pokemon pokemon={selectedPokemon} className={"own-pokemon col-12"} />
+                        </div>
+                        <div className='row d-flex justify-content-center'>
+                            <BattleButton selectedPokemon={selectedPokemon} enemyPokemon={enemyPokemon} />
+                        </div>
+                        <div className='row d-flex justify-content-center'>
+                            <button className='btn col-6 m-2' onClick={() => navigate("/")}>Flee</button>
+                        </div>
+
                     </>
                     : (ownedPokemons.length > 0) ?
                         <>
-                            <Pokemon pokemon={enemyPokemon} />
-                            <div className='own-pokemons'>
-                                <h2>Own pokemons</h2>
-                                <h3>Please choose a Pokemon</h3>
+                            <h2 className='mb-4'>{name}</h2>
+                            <div className='row d-flex justify-content-center'>
+                                <h3>You encountered</h3>
+                                <Pokemon pokemon={enemyPokemon} className={"enemy-pokemon col-3 mb-5"} />
+                            </div>
+
+                            <div className='own-pokemons row d-flex justify-content-center'>
+                                <h4 className='mb-4'>Own pokemons</h4>
+                                <h5>Please choose a Pokemon</h5>
                                 {ownedPokemons.map((pokemon, i) =>
-                                    <Pokemon key={i} pokemon={pokemon} setSelectedPokemon={() => setSelectedPokemon(pokemon)} />
+                                    <Pokemon key={i} pokemon={pokemon} className={"own-pokemon choosable col-3"} setSelectedPokemon={() => setSelectedPokemon(pokemon)} />
                                 )}
                             </div>
                         </> :
