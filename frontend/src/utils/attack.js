@@ -5,7 +5,7 @@ export default async function attack(attackerPokemon, defenderPokemon) {
 
     let randomMove = await fetchMove(attackerPokemon.moves[random(attackerPokemon.moves.length)].move.url)
     let attackerTypes = attackerPokemon.types.map(type => type.type.name)
-    const typeModifiers = [25, 20, 15, 10, 5, 2,5]
+    const typeModifiers = [100, 50, 30, 15]
 
     const A = 1 // attacker's Level
     const B = attackerPokemon.stats[1].base_stat // attacker's Attack or Special
