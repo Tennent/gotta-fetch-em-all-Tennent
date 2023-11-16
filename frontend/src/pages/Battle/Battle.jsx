@@ -24,8 +24,6 @@ export default function Battle() {
   const [selectedHp, setSelectedHp] = useState(0);
   const [enemyHp, setEnemyHp] = useState(0);
 
-
-
   const [isFinished, setIsFinshed] = useState(false);
   const [isplayerTurn, setIsPlayerTurn] = useState(false)
   const [alreadyCaptured, setAlreadyCaptured] = useState(false)
@@ -48,7 +46,6 @@ export default function Battle() {
         setTimeout(() => {
           setIsPlayerTurn(true)
         }, 2000);
-
       }
     }
     battleSetup();
@@ -66,7 +63,6 @@ export default function Battle() {
   useEffect(() => {
     if (isFinished) {
       const alreadyCaptured = async () => {
-
         const response = await fetch("/api/pokemons", {
           method: "POST",
           headers: {
@@ -79,7 +75,6 @@ export default function Battle() {
       if (enemyHp <= 0) {
         alreadyCaptured();
       }
-
       const timeout = setTimeout(async () => {
         setIsFinshed(true)
       }, 2000);
@@ -88,11 +83,10 @@ export default function Battle() {
   }, [isFinished])
 
   async function attackMove() {
-
     const playerAttack = await attack(selected, enemy)
+
     setEnemyHp(enemyHp - playerAttack.damage)
-    setMessage(`${selected.name} used ${playerAttack.name}
-    dealing ${playerAttack.damage} damage.`)
+    setMessage(`${selected.name} used ${playerAttack.name} dealing ${playerAttack.damage} damage.`)
     setIsPlayerTurn(false)
     if (enemyHp <= 0) {
       return
@@ -113,8 +107,6 @@ export default function Battle() {
     }, 10000);
 
   }
-  console.log(selectedHp);
-  console.log(enemyHp);
 
   return (
     (alreadyCaptured && isFinished && enemyHp <= 0) ? <><h1>You won the battle, but {enemy.name} was already captured</h1><button className='btn' onClick={() => navigate("/")}>Back to Locations</button></> :

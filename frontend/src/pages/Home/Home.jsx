@@ -1,9 +1,9 @@
-import './Home.css'
+import { useState, useEffect } from 'react'
 import { fetchLocation } from '../../services/FetchLocations.js'
 import Locations from '../../components/Locations.jsx'
-import { useState, useEffect } from 'react'
+import './Home.css'
 
-function Home() {
+export default function Home() {
 
   const [locations, setLocations] = useState([]);
 
@@ -15,7 +15,6 @@ function Home() {
     }
     getLocations();
   }, [])
-  console.log(locations);
 
   return (
     <>
@@ -33,5 +32,3 @@ function Home() {
     </>
   )
 }
-
-export default Home

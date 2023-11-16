@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { fetchAreas } from '../../services/FetchLocations'
 import { fetchPokemon, fetchOwnedPokemons } from '../../services/FetchPokemons'
-import { useEffect, useState } from 'react'
 import random from '../../utils/random'
 import Pokemon from '../../components/Pokemon'
 import BattleButton from '../../components/BattleButton'
@@ -17,6 +16,7 @@ export default function Areas() {
     const [enemyPokemon, setEnemyPokemon] = useState(null);
     const [ownedPokemons, setOwnedPokemons] = useState([]);
     const [selectedPokemon, setSelectedPokemon] = useState(null);
+
     useEffect(() => {
         const fetchArea = async () => {
             const area = await fetchAreas(name);
@@ -30,8 +30,7 @@ export default function Areas() {
         }
         fetchArea()
     }, [])
-    console.log(ownedPokemons);
-    console.log(selectedPokemon);
+
     if (encounter) {
         return (
             <div className='encounter container'>

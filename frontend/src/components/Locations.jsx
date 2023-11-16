@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react'
 import Area from "./Area";
 
 
 export default function Locations({ location, image }) {
     const [visible, setVisible] = useState(false);
-    const navigate = useNavigate();
     return (
         <div className="location-container col-3 m-2"
         style={{backgroundImage: `url("/src/assets/images/${image}")`}}>

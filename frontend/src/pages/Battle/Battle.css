@@ -1,5 +1,3 @@
-
-
 .message-box {
     background-color: rgb(252, 253, 188);
     border: 2px solid black;
@@ -16,24 +14,18 @@ p {
 
 #message {
     overflow: hidden;
-    /* Hide overflow to create a typing effect */
     white-space: nowrap;
-    /* Keep text on a single line */
     margin: 0;
-    /* Remove default margin */
     font-family: monospace;
-    /* Optional: Use a monospace font for a more typewriter-like feel */
 }
 
 #message::after {
     content: attr(data-text);
-    /* Display the text content of the 'data-text' attribute */
     display: inline-block;
     vertical-align: text-bottom;
     overflow: hidden;
     width: 0;
     animation: typing 1.5s steps(40) forwards;
-    /* Adjust duration and steps as needed */
 }
 
 @keyframes typing {
