@@ -18,8 +18,10 @@ function Home() {
   console.log(locations);
 
   return (
-    <div className='locations'>
-        {locations.map((location, index) => <Locations key={index} location={location} />)}
+    <div className='locations container-fluid'>
+      <div className='row'>
+      {locations.map(location => <Locations key={location.name} location={location} image={`../../assets/images/${location.name}`} />)}
+      </div>
     </div>
   )
 }

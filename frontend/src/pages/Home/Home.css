@@ -12,3 +12,13 @@
 .location:hover, .area:hover {
   color: yellow;
 }
+
+.location-container {
+  height: 30vh;
+  background-image: url("../../assets/images/eterna-city.png")
+}
+
+.areas{
+  height: 20vh;
+  overflow: scroll;
+}
