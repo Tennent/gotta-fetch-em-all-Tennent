@@ -62,7 +62,7 @@ export default function Battle() {
 
   useEffect(() => {
     if (isFinished) {
-      const alreadyCaptured = async () => {
+      const storeCapturedPokemon = async () => {
         const response = await fetch("/api/pokemons", {
           method: "POST",
           headers: {
@@ -73,7 +73,7 @@ export default function Battle() {
         response.status === 208 ? setAlreadyCaptured(true) : setAlreadyCaptured(false);
       }
       if (enemyHp <= 0) {
-        alreadyCaptured();
+        storeCapturedPokemon();
       }
       const timeout = setTimeout(async () => {
         setIsFinshed(true)
