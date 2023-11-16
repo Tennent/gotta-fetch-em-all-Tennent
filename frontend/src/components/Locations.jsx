@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import Area from "./Area";
 
 
-export default function Locations({ location }) {
+export default function Locations({ location, image }) {
     const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
     return (
         <div className="location-container col-3"
-        style={{backgroundImage: ""}}>
+        style={{backgroundImage: `url("/src/assets/images/${image}")`}}>
             <h2 className="location"
                 onClick={() => { visible ? setVisible(false) : setVisible(true) }}
             >{location.name + ((location.areas.length > 0) ? "" : " (No area provided)")}</h2>
