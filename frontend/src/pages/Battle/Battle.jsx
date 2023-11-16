@@ -103,7 +103,7 @@ export default function Battle() {
 
     setTimeout(async () => {
       const enemyAttack = await attack(enemy, selected)
-      setMessage(`Enemy used ${enemyAttack.name}
+      setMessage(`${enemy.name} used ${enemyAttack.name}
           dealing ${enemyAttack.damage} damage.`)
       setSelectedHp(selectedHp - enemyAttack.damage)
     }, 8000);
