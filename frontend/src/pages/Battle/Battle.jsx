@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchPokemon } from '../../services/FetchPokemons';
 import attack from '../../utils/attack';
 import Pokemon from '../../components/Pokemon';
@@ -8,6 +8,7 @@ import Attack from '../../components/Attack'
 import './Battle.css'
 
 export default function Battle() {
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const selectedParams = queryParams.get('selected');
@@ -16,8 +17,15 @@ export default function Battle() {
   const [selected, setSelected] = useState(null);
   const [enemy, setEnemy] = useState(null);
   const [message, setMessage] = useState("");
+
+  const [selectedMaxHp, setSelectedMaxHp] = useState(0);
+  const [enemyMaxHp, setEnemyMaxHp] = useState(0);
+
   const [selectedHp, setSelectedHp] = useState(0);
   const [enemyHp, setEnemyHp] = useState(0);
+
+
+
   const [isFinished, setIsFinshed] = useState(false);
   const [isplayerTurn, setIsPlayerTurn] = useState(false)
   const [alreadyCaptured, setAlreadyCaptured] = useState(false)
@@ -31,6 +39,9 @@ export default function Battle() {
         // After the enemy and selected pokemon is fetched
       } else if (enemy && selected) {
         setMessage(`A wild ${enemy.name} appeared`)
+        setSelectedMaxHp(selected.stats[0].base_stat)
+        setEnemyMaxHp(enemy.stats[0].base_stat)
+
         setSelectedHp(selected.stats[0].base_stat)
         setEnemyHp(enemy.stats[0].base_stat)
 
@@ -45,6 +56,15 @@ export default function Battle() {
 
   useEffect(() => {
     if ((selectedHp <= 0) || (enemyHp <= 0)) {
+      const timeout = setTimeout(() => {
+        setIsFinshed(true)
+      }, 2000);
+      return () => { clearTimeout(timeout) }
+    }
+  }, [enemyHp, selectedHp])
+
+  useEffect(() => {
+    if (isFinished) {
       const alreadyCaptured = async () => {
 
         const response = await fetch("/api/pokemons", {
@@ -65,7 +85,7 @@ export default function Battle() {
       }, 2000);
       return () => { clearTimeout(timeout) }
     }
-  }, [selectedHp, enemyHp])
+  }, [isFinished])
 
   async function attackMove() {
 
@@ -74,7 +94,9 @@ export default function Battle() {
     setMessage(`${selected.name} used ${playerAttack.name}
     dealing ${playerAttack.damage} damage.`)
     setIsPlayerTurn(false)
-
+    if (enemyHp <= 0) {
+      return
+    }
     setTimeout(() => {
       setMessage(`${enemy.name} is preparing for the attack...`)
     }, 4000);
@@ -82,7 +104,7 @@ export default function Battle() {
     setTimeout(async () => {
       const enemyAttack = await attack(enemy, selected)
       setMessage(`Enemy used ${enemyAttack.name}
-      dealing ${enemyAttack.damage} damage.`)
+          dealing ${enemyAttack.damage} damage.`)
       setSelectedHp(selectedHp - enemyAttack.damage)
     }, 8000);
 
@@ -95,16 +117,17 @@ export default function Battle() {
   console.log(enemyHp);
 
   return (
-    (isFinished && selectedHp <= 0) ? <h1>You lost the battle</h1> :
-      (alreadyCaptured && isFinished && enemyHp <= 0) ? <h1>You won the battle, but {enemy.name} was already captured</h1> :
-        (isFinished && enemyHp <= 0) ? <h1>You won the battle and captured {enemy.name}</h1> :
+    (alreadyCaptured && isFinished && enemyHp <= 0) ? <><h1>You won the battle, but {enemy.name} was already captured</h1><button onClick={() => navigate("/")}>Back to Locations</button></> :
+      (isFinished && enemyHp <= 0) ? <><h1>You won the battle and captured {enemy.name}</h1><button onClick={() => navigate("/")}>Back to Locations</button></> :
+        (isFinished) ? <><h1>You lost the battle</h1><button onClick={() => navigate("/")}>Back to Locations</button></> :
           (selected && enemy) ?
             (<div id='battle'>
-              <Pokemon className="enemy" pokemon={enemy} health={enemyHp} />
-              <Pokemon className="friendly" pokemon={selected} health={selectedHp} />
+              <Pokemon className="enemy" pokemon={enemy} health={enemyHp} maxHp={enemyMaxHp} />
+              <Pokemon className="friendly" pokemon={selected} health={selectedHp} maxHp={selectedMaxHp} />
               <Message message={message} />
               {(isplayerTurn) ? (<Attack startRound={attackMove} />) : ""}
             </div>) :
             (<p>Loading...</p>)
   )
 }
+
