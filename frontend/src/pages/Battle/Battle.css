@@ -43,3 +43,11 @@
         width: 100%;
     }
 }
+
+.progress {
+    margin: auto;
+}
+
+.progress-bar {
+    background-color: green;
+}
