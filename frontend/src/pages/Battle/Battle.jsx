@@ -75,10 +75,6 @@ export default function Battle() {
       if (enemyHp <= 0) {
         storeCapturedPokemon();
       }
-      const timeout = setTimeout(async () => {
-        setIsFinshed(true)
-      }, 2000);
-      return () => { clearTimeout(timeout) }
     }
   }, [isFinished])
 
